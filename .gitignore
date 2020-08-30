@@ -8,3 +8,7 @@ env/
 venv/
 
 *.sqlite3
+
+#python
+*.pyc
+__pycache__/ (any folder anywhere with that name)

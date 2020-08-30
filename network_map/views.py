@@ -12,3 +12,13 @@ class ProviderList(generics.ListAPIView):
 class ProviderDetail(generics.RetrieveAPIView):
     queryset = Provider.objects.all()
     serializer_class = ProviderSerializer
+
+
+class CityList(generics.ListAPIView):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
+
+
+class CityDetail(generics.RetrieveAPIView):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
