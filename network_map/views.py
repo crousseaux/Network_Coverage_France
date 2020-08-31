@@ -22,3 +22,13 @@ class CityList(generics.ListAPIView):
 class CityDetail(generics.RetrieveAPIView):
     queryset = City.objects.all()
     serializer_class = CitySerializer
+
+
+class NetworkList(generics.ListAPIView):
+    queryset = Network.objects.all()
+    serializer_class = NetworkSerializer
+
+
+class NetworkDetail(generics.RetrieveAPIView):
+    queryset = Network.objects.all()
+    serializer_class = NetworkSerializer

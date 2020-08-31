@@ -64,14 +64,14 @@ original_data_frame.drop_duplicates(inplace=True)
 networks = original_data_frame.columns[-3:]
 with open("data/networks.csv", mode='w') as csv_file:
     file_writer = csv.writer(csv_file)
-    file_writer.writerow(['name'])
+    file_writer.writerow(['network_name'])
     for value in networks:
         file_writer.writerow([value])
 
 # Get list of all unique operator
 operator = original_data_frame[['Operateur']].drop_duplicates()
 operator = append_operator_name_to_code(operator)[['Operateur', 'Nom']]
-operator = operator.rename(columns={"Operateur": "code", "Nom": "name"})
+operator = operator.rename(columns={"Operateur": "code", "Nom": "provider_name"})
 operator.to_csv('data/operators.csv', index=False)
 
 # Group row by geolocation

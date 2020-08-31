@@ -16,7 +16,7 @@ class Provider(BaseModel):
 
 
 class Network(BaseModel):
-    name = models.CharField(unique=True, max_length=20)
+    name = models.CharField(max_length=20, unique=True)
 
 
 class City(BaseModel):

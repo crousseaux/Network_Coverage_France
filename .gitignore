@@ -11,6 +11,4 @@ venv/
 
 #python
 *.pyc
-__pycache__/ (any folder anywhere with that name)
-network_map/__pycache__/
-network_map_project/__pycache__/
+__pycache__/

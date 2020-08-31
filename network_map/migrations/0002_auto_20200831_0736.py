@@ -17,7 +17,7 @@ def create_providers(apps, schema_editor):
     Provider = apps.get_model('network_map', 'Provider')
     new_operators = []
     for index, row in operators_df.iterrows():
-        new_operator = Provider(code=row.code, name=row.name)
+        new_operator = Provider(code=row.code, name=row.provider_name)
         new_operators.append(new_operator)
     Provider.objects.bulk_create(new_operators)
 
@@ -27,7 +27,7 @@ def create_networks(apps, schema_editor):
     Network = apps.get_model('network_map', 'Network')
     new_networks = []
     for index, row in networks_df.iterrows():
-        new_network = Network(name=row.name)
+        new_network = Network(name=row.network_name)
         new_networks.append(new_network)
     Network.objects.bulk_create(new_networks)
 
