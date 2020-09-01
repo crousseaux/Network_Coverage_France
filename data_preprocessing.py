@@ -23,12 +23,9 @@ WGS84 = pyproj.Proj('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
 pandarallel.initialize(progress_bar=True, nb_workers=os.cpu_count())
 
 
-# todo: move csv to data folder
-# todo: remove pycaches from repo
 # todo: read me (dependencies, how, what) // requirements
-# todo: add methods everywhere - add if__main__
+# todo: add methods everywhere in this file - add if__main__
 # todo: add todo.md -> gerer code postaux, chunks, read_csv, modifier pyproj (use transformer)
-
 # todo later: cors allow all https://www.techiediaries.com/django-cors/
 
 def convert_lambert93_to_gps_coord(x, y):
