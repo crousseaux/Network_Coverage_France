@@ -24,9 +24,9 @@ class City(BaseModel):
 
 
 class NetworkProviderCityConnector(BaseModel):
-    city_id = models.ForeignKey(City, on_delete=models.CASCADE)
-    network_id = models.ForeignKey(Network, on_delete=models.CASCADE)
-    provider_id = models.ForeignKey(Provider, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, unique=False)
+    network = models.ForeignKey(Network, on_delete=models.CASCADE, unique=False)
+    provider = models.ForeignKey(Provider, on_delete=models.CASCADE, unique=False)
 
     class Meta:
-        unique_together = ('city_id', 'network_id', 'provider_id')
+        unique_together = ('city', 'network', 'provider')

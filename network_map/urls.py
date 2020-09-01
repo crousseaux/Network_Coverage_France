@@ -9,4 +9,6 @@ urlpatterns = [
     path('city/<int:pk>/', views.CityDetail.as_view()),
     path('network/', views.NetworkList.as_view()),
     path('network/<int:pk>/', views.NetworkDetail.as_view()),
+    path('connector/', views.ConnectorList.as_view()),
+    path('connector/<int:pk>/', views.ConnectorDetail.as_view()),
 ]

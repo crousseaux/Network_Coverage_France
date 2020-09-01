@@ -22,6 +22,10 @@ class CitySerializer(serializers.ModelSerializer):
 
 
 class NetworkProviderCityConnectorSerializer(serializers.ModelSerializer):
+    city = serializers.StringRelatedField(source='city.name', read_only=True)
+    provider = serializers.StringRelatedField(source='provider.name', read_only=True)
+    network = serializers.StringRelatedField(source='network.name', read_only=True)
+
     class Meta:
-        fields = '__all__'
+        fields = ('city', 'provider', 'network')
         model = models.NetworkProviderCityConnector

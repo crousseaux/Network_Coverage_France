@@ -32,3 +32,13 @@ class NetworkList(generics.ListAPIView):
 class NetworkDetail(generics.RetrieveAPIView):
     queryset = Network.objects.all()
     serializer_class = NetworkSerializer
+
+
+class ConnectorList(generics.ListAPIView):
+    queryset = NetworkProviderCityConnector.objects.all()
+    serializer_class = NetworkProviderCityConnectorSerializer
+
+
+class ConnectorDetail(generics.RetrieveAPIView):
+    queryset = NetworkProviderCityConnector.objects.all()
+    serializer_class = NetworkProviderCityConnectorSerializer

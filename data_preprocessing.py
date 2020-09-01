@@ -103,8 +103,8 @@ for idx, chunk in enumerate(numpy.array_split(coordinate, 10)):
 # Get unique cities
 print('____________Total number of cities____________')
 print(len(city_details))
-cities = city_details.rename(columns={"result_city": "city"})
-cities = cities[['city']].drop_duplicates()
+city_details = city_details.rename(columns={"result_city": "city"})
+cities = city_details[['city']].drop_duplicates()
 print('____________Number of cities____________')
 print(len(cities))
 cities.to_csv('data/cities.csv', index=False)
@@ -114,7 +114,7 @@ city_details = city_details.round({'lon': 12, 'lat': 12})
 coordinate = coordinate.round({'lon': 12, 'lat': 12})
 city_details_withXY = city_details.merge(coordinate, on=['lon', 'lat'])
 
-city_network_provider = city_details_withXY.merge(original_data_frame, on=['X', 'Y'])[['result_city', 'Operateur', '2G', '3G', '4G']]
+city_network_provider = city_details_withXY.merge(original_data_frame, on=['X', 'Y'])[['city', 'Operateur', '2G', '3G', '4G']]
 print('____________Number of network provider cities____________')
 city_network_provider.drop_duplicates(inplace=True)
 print(len(city_network_provider))
