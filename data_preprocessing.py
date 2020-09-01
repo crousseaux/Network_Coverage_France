@@ -25,7 +25,7 @@ pandarallel.initialize(progress_bar=True, nb_workers=os.cpu_count())
 
 # todo: read me (dependencies, how, what) // requirements
 # todo: add methods everywhere in this file - add if__main__
-# todo: add todo.md -> gerer code postaux, chunks, read_csv, modifier pyproj (use transformer)
+# todo: add todo.md -> gerer code postaux, chunks, read_csv, modifier pyproj (use transformer), partial in city
 # todo later: cors allow all https://www.techiediaries.com/django-cors/
 
 def convert_lambert93_to_gps_coord(x, y):
@@ -95,7 +95,7 @@ for idx, chunk in enumerate(numpy.array_split(coordinate, 10)):
     if city_details.empty:
         city_details = current_city_details
     else:
-        city_details.append(current_city_details)
+        city_details = city_details.append(current_city_details)
 
 # Get unique cities
 print('____________Total number of cities____________')

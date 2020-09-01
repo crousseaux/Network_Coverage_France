@@ -11,4 +11,5 @@ urlpatterns = [
     path('network/<int:pk>/', views.NetworkDetail.as_view()),
     path('connector/', views.ConnectorList.as_view()),
     path('connector/<int:pk>/', views.ConnectorDetail.as_view()),
+    path('', views.NetworkMapping.as_view()),
 ]
