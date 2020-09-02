@@ -88,12 +88,12 @@ def get_city_details(coordinates):
             city_details = current_city_details
         else:
             city_details = city_details.append(current_city_details)
+    city_details = city_details.rename(columns={"result_city": "city"})
     return city_details
 
 
 def create_cities_csv(city_details):
     # Get unique cities
-    city_details = city_details.rename(columns={"result_city": "city"})
     cities = city_details[['city']].drop_duplicates()
     cities.to_csv('data/cities.csv', index=False)
 

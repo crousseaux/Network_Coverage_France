@@ -1,4 +1,5 @@
-from rest_framework import generics
+from requests.exceptions import HTTPError
+from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -56,8 +57,15 @@ class NetworkMapping(APIView):
     def get(self, request):
         # Get address from the query parameter
         address = request.query_params.get('q', None)
+        if not address:
+            return Response({'error': 'Address is missing. Make sure to provide an address'}, status=status.HTTP_400_BAD_REQUEST)
         # Find the city of the address using geo.api.gouv api
-        city = geocoding_service.get_city_from_address(address)
+        try:
+            city = geocoding_service.get_city_from_address(address)
+        except HTTPError:
+            return Response({'error': 'Unable to get connect to data.gouv.fr API. Please try again.'}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        if city is None:
+            return Response({'error': 'Address not recognized. Make sure it is correct.'}, status=status.HTTP_400_BAD_REQUEST)
         # querying all networks as they will all be part of the payload
         networks = Network.objects.all()
         # get all the network providers and coverage of the requested city
