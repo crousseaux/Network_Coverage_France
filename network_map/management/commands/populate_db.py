@@ -50,18 +50,21 @@ def create_city_provider_network():
 
     if not connector_df.empty:
         new_connectors = []
-        # Fetching now so we don't fetch it later
+        # Fetching all networks now to reduce amount of queries
         network_2g = Network.objects.get(name='2G')
         network_3g = Network.objects.get(name='3G')
         network_4g = Network.objects.get(name='4G')
-        # This will be used to keep track of providers already queried so we don't query them several times
+        # Keeps track of provider codes already queried which reduces number of queries later
         code_to_provider = {}
         for index, row in connector_df.iterrows():
-            operator_in_row = row.Operateur
-            current_provider = code_to_provider[operator_in_row] if operator_in_row in code_to_provider else Provider.objects.get(code=row.Operateur)
-            if operator_in_row in code_to_provider:
-                code_to_provider[operator_in_row] = Provider
+            # fetch city record
             current_city = City.objects.get(name=row.city)
+            # fetch network provider record
+            operator_in_row = row.Operateur
+            current_provider = code_to_provider[operator_in_row] if operator_in_row in code_to_provider else Provider.objects.get(code=operator_in_row)
+            if operator_in_row not in code_to_provider:
+                code_to_provider[operator_in_row] = current_provider
+            # Create a connector object only if the current provider in the current city offers thsi network coverage
             if row['2G']:
                 new_connector = NetworkProviderCityConnector(city=current_city,
                                                              network=network_2g,
