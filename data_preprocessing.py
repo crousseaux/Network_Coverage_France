@@ -1,7 +1,6 @@
 import csv
 import io
 import os
-import time
 import warnings
 
 import numpy
@@ -9,8 +8,6 @@ import pandas
 import pyproj
 import requests
 from pandarallel import pandarallel
-
-start_time = time.time()
 
 # because transfrom is deprecated
 warnings.filterwarnings("ignore", category=DeprecationWarning)
@@ -76,8 +73,6 @@ coordinate = original_data_frame[['X', 'Y']].drop_duplicates()
 # Get GPS coordinates
 coordinate[['lon', 'lat']] = coordinate.parallel_apply(lambda current_row: convert_lambert93_to_gps_coord(current_row['X'], current_row['Y']), axis=1)
 
-minutes = int((time.time() - start_time) / 60)
-print("--- %s minutes after coordinate conversion---" % minutes)
 # Create csv with GPS lat and long coordinates
 # 100 lines is about 4kb -> 100,000 lines are 4Mb
 # the api allows us 50Mb ~ 1,000,000 lines
@@ -98,12 +93,8 @@ for idx, chunk in enumerate(numpy.array_split(coordinate, 10)):
         city_details = city_details.append(current_city_details)
 
 # Get unique cities
-print('____________Total number of cities____________')
-print(len(city_details))
 city_details = city_details.rename(columns={"result_city": "city"})
 cities = city_details[['city']].drop_duplicates()
-print('____________Number of cities____________')
-print(len(cities))
 cities.to_csv('data/cities.csv', index=False)
 
 # we don't need this type of precision bc we're looking at cities and gives us 100% match
@@ -112,14 +103,8 @@ coordinate = coordinate.round({'lon': 12, 'lat': 12})
 city_details_withXY = city_details.merge(coordinate, on=['lon', 'lat'])
 
 city_network_provider = city_details_withXY.merge(original_data_frame, on=['X', 'Y'])[['city', 'Operateur', '2G', '3G', '4G']]
-print('____________Number of network provider cities____________')
 city_network_provider.drop_duplicates(inplace=True)
-print(len(city_network_provider))
 city_network_provider.to_csv('data/city_provider_network.csv', index=False)
 
 # aws cluster spark
 # si non technique d'analyse de donnees -> cluster
-
-print("--- %s seconds ---" % (time.time() - start_time))
-minutes = int((time.time() - start_time) / 60)
-print("--- %s minutes ---" % minutes)
