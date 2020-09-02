@@ -9,7 +9,7 @@ import pyproj
 import requests
 from pandarallel import pandarallel
 
-# because transfrom is deprecated
+# this is to hide deprecation warnings from console as pyproj transform is deprecated
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 LAMBERT = pyproj.Proj('+proj=lcc +lat_1=49 +lat_2=44 +lat_0=46.5 +lon_0=3 +x_0=700000 +y_0=6600000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs')
@@ -19,11 +19,6 @@ WGS84 = pyproj.Proj('+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs')
 # before 37 min after 8 min
 pandarallel.initialize(progress_bar=True, nb_workers=os.cpu_count())
 
-
-# todo: read me (dependencies, how, what) // requirements
-# todo: add methods everywhere in this file - add if__main__
-# todo: add todo.md -> gerer code postaux, chunks, read_csv, modifier pyproj (use transformer), partial in city
-# todo later: cors allow all https://www.techiediaries.com/django-cors/
 
 def convert_lambert93_to_gps_coord(x, y):
     lon, lat = pyproj.transform(LAMBERT, WGS84, x, y)
