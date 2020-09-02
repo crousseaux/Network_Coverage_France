@@ -84,6 +84,8 @@ https://network-map-api.herokuapp.com/api/connector/1/
 
 
 ## Further Improvements
+1. If our original dataset was too big to compute on a single machine, we could use aws cluster spark and think about 
+using data analysis such as clusters
 1. Use postal codes instead of cities for more precision. Assuming two cities can have the same name, it would be useful to introduce postal codes.
 1. A provider could provide a partial network coverage in the one city. In this case, we would introduce a new field on NetworkProviderCityConnector: 'partial'.
  It would essentially be a checkbox which indicates that a provider only covers parts of a city if checked and the full city if unchecked. Note: The record won't 
