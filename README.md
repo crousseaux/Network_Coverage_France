@@ -9,7 +9,7 @@ Network Coverage by Providers in France
     ```
 1. `cd` into the project directory
     ```shell
-    $ cd papernest
+    $ cd Network_Coverage_France
     ```
 1. Create a new virtual environment using Python 3.7 and activate it.
     ```shell
